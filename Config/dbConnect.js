@@ -2,10 +2,10 @@ import { JSONCookie } from "cookie-parser";
 import { query } from "express";
 import mysql from "mysql2/promise";
 export const pool = mysql.createPool({
-  host: "switchback.proxy.rlwy.net", // ✅ Match CLI host
-  port: 26109, // ✅ Match CLI port
+  host: "yamanote.proxy.rlwy.net", // ✅ Match CLI host
+  port: 17437, // ✅ Match CLI port
   user: "root", // ✅ Match CLI user
-  password: "BgQOcsTEDptOsVZDaqwtgQFXCEluFoLD", // ✅ Match CLI password
+  password: "RyvtquGubmgANUnweFtWxAyosGlQFMCC", // ✅ Match CLI password
   database: "railway", // ✅ Match CLI DB name
   waitForConnections: true,
   connectionLimit: 10,
