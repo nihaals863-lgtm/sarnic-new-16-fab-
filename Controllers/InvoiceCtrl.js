@@ -1,4 +1,5 @@
 import { pool } from "../Config/dbConnect.js";
+import { getNextNumber } from "./NumberSequenceCtrl.js";
 
 /* ======================================
    PARSE AMOUNT BY CURRENCY
@@ -275,10 +276,7 @@ export const createInvoice = async (req, res) => {
     }
 
     /* ================= INVOICE NUMBER ================= */
-    const [[row]] = await pool.query(
-      "SELECT MAX(invoice_no) AS maxNo FROM invoices"
-    );
-    const invoiceNo = (row.maxNo || 5000) + 1;
+    const invoiceNo = await getNextNumber("invoice_no");
 
     /* ================= CALCULATE TOTALS ================= */
     let subtotal = 0;

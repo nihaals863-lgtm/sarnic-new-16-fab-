@@ -1,4 +1,5 @@
 import { pool } from "../Config/dbConnect.js";
+import { getNextNumber } from "./NumberSequenceCtrl.js";
 
 export const parseAmountByCurrency = (amount, currency) => {
   if (!amount) return 0;
@@ -86,10 +87,7 @@ export const createEstimate = async (req, res) => {
       ce_invoice_status
     );
 
-    const [[row]] = await pool.query(
-      "SELECT MAX(estimate_no) AS maxNo FROM estimates"
-    );
-    const estimateNo = (row.maxNo || 6607) + 1;
+    const estimateNo = await getNextNumber("estimate_no");
 
     let subtotal = 0;
     const parsedItems = line_items.map(item => {
@@ -622,8 +620,7 @@ export const duplicateEstimate = async (req, res) => {
       return res.status(404).json({ success: false, message: "Estimate not found" });
     }
 
-    const [[row]] = await pool.query("SELECT MAX(estimate_no) AS maxNo FROM estimates");
-    const nextEstimateNo = (row.maxNo || 6607) + 1;
+    const nextEstimateNo = await getNextNumber("estimate_no");
 
     // When duplicating, we keep the same financials and line items, but reset workflow flags.
     const ce_po_status = "pending";

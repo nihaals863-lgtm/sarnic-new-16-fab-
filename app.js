@@ -17,6 +17,7 @@ import assignJobRoutes from "./Routers/assignJobRoutes.js";
 import invoiceRoutes from "./Routers/invoiceRoutes.js";
 import dashboradRoutes from "./Routers/dashboardRoutes.js";
 import timeLogsRoutes from "./Routers/timeLogsRoutes.js";
+import numberSequenceRoutes from "./Routers/numberSequenceRoutes.js";
 
 const router = Router();
 
@@ -38,5 +39,6 @@ router.use("/api/s1", assignJobRoutes);
 router.use("/api/s1", invoiceRoutes);
 router.use("/api/s1",dashboradRoutes);
 router.use("/api/s1",timeLogsRoutes);
+router.use("/api/s1",numberSequenceRoutes);
 
 export default router;  

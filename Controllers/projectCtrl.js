@@ -1,4 +1,5 @@
 import { pool } from "../Config/dbConnect.js";
+import { getNextNumber } from "./NumberSequenceCtrl.js";
 
 const parseBudget = (budget, currency) => {
   if (!budget) return null;
@@ -51,10 +52,7 @@ export const createProject = async (req, res) => {
     }
 
     // 1️⃣ Generate next project_no
-    const [[row]] = await pool.query(
-      "SELECT MAX(project_no) AS maxProjectNo FROM projects"
-    );
-    const nextProjectNo = (row.maxProjectNo || 2093) + 1;
+    const nextProjectNo = await getNextNumber("project_no");
 
     // 2️⃣ Parse budget
     const cleanBudget = parseBudget(budget, currency);

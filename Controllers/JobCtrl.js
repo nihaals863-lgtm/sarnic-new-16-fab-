@@ -1,4 +1,5 @@
 import { pool } from "../Config/dbConnect.js";
+import { getNextNumber } from "./NumberSequenceCtrl.js";
 
 export const createJob = async (req, res) => {
   try {
@@ -32,11 +33,7 @@ export const createJob = async (req, res) => {
     const finalProjectName = project_name || project.project_name;
 
     // 2️⃣ Generate job_no
-    const [[row]] = await pool.query(
-      "SELECT MAX(job_no) AS maxJobNo FROM jobs"
-    );
-
-    const nextJobNo = (row.maxJobNo || 18542) + 1;
+    const nextJobNo = await getNextNumber("job_no");
 
     // 3️⃣ Insert job (job_status = Active)
     const [result] = await pool.query(
