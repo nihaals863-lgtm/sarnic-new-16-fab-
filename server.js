@@ -5,13 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Enable CORS for all routes
-
-
-app.use(cors({
-  origin: 'https://project.phoenix-dezign.com',
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
-}));
+app.use(cors());
 app.use(express.json());
 
 // Health check endpoint
